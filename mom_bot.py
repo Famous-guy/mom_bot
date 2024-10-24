@@ -21,11 +21,11 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     # Create buttons
     keyboard = [
         [InlineKeyboardButton("Join mingle now", url='https://t.me/money_mingle_bot/mom')],
-        [InlineKeyboardButton("Join now", url='https://moneymingle.app')],
         [InlineKeyboardButton("Get Login ID", callback_data='login_id')],
         [InlineKeyboardButton("Subscribe to the channel", url="https://t.me/joinmoneymingle")],
         [InlineKeyboardButton("Join our community", url="https://t.me/money_mingle_community")],
-        [InlineKeyboardButton("How to earn from the game", callback_data='earn')]
+        [InlineKeyboardButton("How to earn from the game", callback_data='earn')],
+        [InlineKeyboardButton("Learn now", url='https://moneymingle.app')],
     ]
 
     # Create an InlineKeyboardMarkup with the buttons
@@ -42,6 +42,27 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         parse_mode='HTML',
         reply_markup=reply_markup
     )
+
+def escape_markdown_v2(text: str) -> str:
+    """Escape characters in MarkdownV2 to avoid parsing errors."""
+    escape_chars = ['_', '*', '[', ']', '(', ')', '~', '`', '>', '#', '+', '-', '=', '|', '{', '}', '.', '!']
+    for char in escape_chars:
+        text = text.replace(char, f'\\{char}')
+    return text
+
+async def learn_more(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    # Get the user's first name and escape it for MarkdownV2
+    # first_name = escape_markdown_v2(update.effective_user.first_name)
+    
+    # Sending a message with a clickable link
+    await update.message.reply_text(
+        f'Hello {update.effective_user.first_name},\n\n'
+        f'Click <a href="https://moneymingle.app">here</a> to learn more!',
+        parse_mode='HTML'
+        # parse_mode='MarkdownV2'  # Enable markdown parsing for clickable links
+    )
+
+
 
 # Function to handle button clicks
 # Function to handle button clicks
@@ -70,6 +91,7 @@ async def main() -> None:
 
     # Register the /start command
     app.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("learn_more", learn_more))
 
     # Register button handler
     app.add_handler(CallbackQueryHandler(button))
