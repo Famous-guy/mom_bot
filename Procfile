@@ -1,0 +1,1 @@
+web: python3 mom_bot.py
