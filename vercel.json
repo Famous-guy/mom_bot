@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "mom_bot.py",
+      "use": "@vercel/python"
+    }
+  ]
+}
