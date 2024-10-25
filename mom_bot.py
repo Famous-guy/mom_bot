@@ -15,7 +15,7 @@ bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
 nest_asyncio.apply()
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     # Send the cover image
-    cover_image_url = "https://moneymingle.app/icons/mom.jpeg"  # Replace with your image URL
+    cover_image_url = "https://moneymingle.app/icons/mommy.jpg"  # Replace with your image URL
     
 
     # Create buttons
